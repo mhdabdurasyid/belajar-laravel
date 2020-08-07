@@ -18,8 +18,8 @@ class CreatePertanyaanTable extends Migration
             $table->string('judul', 45);
             $table->longText('isi');
             $table->date('tanggal_dibuat');
-            $table->date('tanggal_diperbarui');
-            $table->unsignedBigInteger('profil_id');
+            $table->date('tanggal_diperbarui')->nullable();
+            $table->unsignedBigInteger('profil_id')->nullable();
             $table->foreign('profil_id')->references('id')->on('profil');
         });
     }
