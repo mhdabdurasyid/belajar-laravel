@@ -8,7 +8,9 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="/pertanyaan/{{ $data->id }}" method="POST">
+            <form
+                action="{{ route('pertanyaan.update',['pertanyaan'=>$data->id]) }}"
+                method="POST">
                 @csrf
                 @method('put')
                 <div class="form-group">

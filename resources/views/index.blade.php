@@ -14,7 +14,8 @@
     </div>
 @endif
 @forelse($pertanyaan as $data)
-    <a href="/pertanyaan/{{ $data->id }}" style="color: black">
+    <a href="{{ route('pertanyaan.show',['pertanyaan'=>$data->id]) }}"
+        style="color: black">
         <div class="card">
             <div class="card-header">
                 <p class="card-title"><strong>{{ $data->judul }}</strong></p>
@@ -42,5 +43,6 @@
         $("#alert").fadeTo(5000, 500).slideUp(500, function () {
             $("#alert").slideUp(500);
         });
+
     </script>
 @endpush

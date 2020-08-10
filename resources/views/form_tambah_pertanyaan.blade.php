@@ -7,7 +7,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="/pertanyaan" method="POST">
+        <form action="{{route('pertanyaan.store')}}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="judul">Judul Pertanyaan</label>

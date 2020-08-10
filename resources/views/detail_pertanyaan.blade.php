@@ -16,10 +16,13 @@
         <div class="card-footer">
             <div class="row justify-content-end">
                 <div class="col-1">
-                    <a href="/pertanyaan/{{ $data->id }}/edit" class="btn btn-primary">Ubah</a>
+                    <a href="{{ route('pertanyaan.edit', ['pertanyaan'=>$data->id]) }}"
+                        class="btn btn-primary">Ubah</a>
                 </div>
                 <div class="col-1">
-                    <form action="/pertanyaan/{{ $data->id }}" method="POST" style="">
+                    <form
+                        action="{{ route('pertanyaan.destroy',['pertanyaan'=>$data->id]) }}"
+                        method="POST">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger">Hapus</button>

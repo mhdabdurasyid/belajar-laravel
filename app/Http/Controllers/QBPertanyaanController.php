@@ -3,44 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Pertanyaan;
 
-class PertanyaanController extends Controller
+class QBPertanyaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        //$pertanyaan = DB::table('pertanyaan')->select('id', 'judul', 'isi', 'tanggal_dibuat')->get();
+
         $pertanyaan = Pertanyaan::all();
 
         return view('index', ['pertanyaan' => $pertanyaan]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('form_tambah_pertanyaan');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'judul' => 'required',
             'isi' => 'required',
         ]);
+
+        // $query = DB::table('pertanyaan')->insert([
+        //     'judul' => $request['judul'],
+        //     'isi' => $request['isi'],
+        //     'tanggal_dibuat' => date('Y/m/d')
+        // ]);
+
+        // $pertanyaan = new Pertanyaan;
+        // $pertanyaan->judul = $request->judul;
+        // $pertanyaan->isi = $request->isi;
+        // $pertanyaan->tanggal_dibuat = date('Y/m/d');
+        // $pertanyaan->save();
 
         $pertanyaan = Pertanyaan::create([
             'judul' => $request['judul'],
@@ -51,41 +50,42 @@ class PertanyaanController extends Controller
         return redirect('/pertanyaan')->with('sukses', 'Berhasil tambah pertanyaan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
+        //$pertanyaan = DB::table('pertanyaan')->where('id', $id)->get();
+
         $pertanyaan = Pertanyaan::where('id', $id)->get();
 
         return view('detail_pertanyaan', ['pertanyaan' => $pertanyaan]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function destroy($id)
+    {
+        //$hapus = DB::table('pertanyaan')->where('id', $id)->delete();
+
+        $hapus = Pertanyaan::destroy($id);
+
+        return redirect('/pertanyaan')->with('hapus', 'Berhasil hapus pertanyaan');
+    }
+
     public function edit($id)
     {
+        //$pertanyaan = DB::table('pertanyaan')->where('id', $id)->get();
+
         $pertanyaan = Pertanyaan::where('id', $id)->get();
 
         return view('edit_pertanyaan', ['pertanyaan' => $pertanyaan]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
+        // $ubah = DB::table('pertanyaan')->where('id', $id)
+        //     ->update([
+        //         'judul' => $request['judul'],
+        //         'isi' => $request['isi'],
+        //         'tanggal_diperbarui' => date('Y/m/d')
+        //     ]);
+
         $ubah = Pertanyaan::where('id', $id)->update([
             'judul' => $request['judul'],
             'isi' => $request['isi'],
@@ -93,18 +93,5 @@ class PertanyaanController extends Controller
         ]);
 
         return redirect('/pertanyaan')->with('sukses', 'Berhasil update pertanyaan');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $hapus = Pertanyaan::destroy($id);
-
-        return redirect('/pertanyaan')->with('hapus', 'Berhasil hapus pertanyaan');
     }
 }
