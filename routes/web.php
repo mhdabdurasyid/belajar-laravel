@@ -17,9 +17,9 @@
 
 //Route::post('/welcome', 'AuthController@welcome');
 
-//Route::get('/', function () {
-//return view('table');
-//});
+// Route::get('/', function () {
+// return view('welcome');
+// });
 
 //Route::get('/data-tables', function () {
 //return view('data-tables');
@@ -34,3 +34,7 @@
 // Route::delete('/pertanyaan/{pertanyaan_id}', 'PertanyaanController@destroy');
 
 Route::resource('pertanyaan', 'PertanyaanController');
+
+Auth::routes();
+
+Route::get('/', 'PertanyaanController@index');

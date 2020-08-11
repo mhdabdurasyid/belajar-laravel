@@ -1,27 +1,26 @@
 @extends('master')
 
 @section('content')
-@foreach($pertanyaan as $data)
     <div class="card">
         <div class="card-header">
-            <p class="card-title"><strong>{{ $data->judul }}</strong></p>
+            <p class="card-title"><strong>{{ $pertanyaan->judul }}</strong></p>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <small><strong>{{ $data->tanggal_dibuat }}</strong></small>
+            <small><strong>{{ $pertanyaan->tanggal_dibuat }}</strong></small>
             <hr>
-            <p>{{ $data->isi }}</p>
+            <p>{{ $pertanyaan->isi }}</p>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
             <div class="row justify-content-end">
                 <div class="col-1">
-                    <a href="{{ route('pertanyaan.edit', ['pertanyaan'=>$data->id]) }}"
+                    <a href="{{ route('pertanyaan.edit', ['pertanyaan'=>$pertanyaan->id]) }}"
                         class="btn btn-primary">Ubah</a>
                 </div>
                 <div class="col-1">
                     <form
-                        action="{{ route('pertanyaan.destroy',['pertanyaan'=>$data->id]) }}"
+                        action="{{ route('pertanyaan.destroy',['pertanyaan'=>$pertanyaan->id]) }}"
                         method="POST">
                         @csrf
                         @method('delete')
@@ -31,5 +30,4 @@
             </div>
         </div>
     </div>
-@endforeach
 @endsection

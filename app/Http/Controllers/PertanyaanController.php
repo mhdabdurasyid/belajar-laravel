@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Pertanyaan;
 
 class PertanyaanController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +70,7 @@ class PertanyaanController extends Controller
      */
     public function show($id)
     {
-        $pertanyaan = Pertanyaan::where('id', $id)->get();
+        $pertanyaan = Pertanyaan::find($id);
 
         return view('detail_pertanyaan', ['pertanyaan' => $pertanyaan]);
     }
@@ -72,7 +83,7 @@ class PertanyaanController extends Controller
      */
     public function edit($id)
     {
-        $pertanyaan = Pertanyaan::where('id', $id)->get();
+        $pertanyaan = Pertanyaan::find($id);
 
         return view('edit_pertanyaan', ['pertanyaan' => $pertanyaan]);
     }
